@@ -20,16 +20,46 @@ const defaultColorStops = [
 ];
 
 export default class GradientGenerator extends Component {
-  state = {
-    gradientType: "linear",
-    angle: 180,
-    direction: "to bottom",
-    shape: "ellipse",
-    position: "center",
-    colorStops: [...defaultColorStops],
-    nextStopId: 3,
-    showColorPicker: {},
-    copiedCSS: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      gradientType: "linear",
+      angle: 180,
+      direction: "to bottom",
+      shape: "ellipse",
+      position: "center",
+      colorStops: [...defaultColorStops],
+      nextStopId: 3,
+      showColorPicker: {},
+      copiedCSS: false
+    };
+    this.colorPickerRefs = {};
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = (event) => {
+    const { showColorPicker } = this.state;
+    
+    Object.keys(showColorPicker).forEach(stopId => {
+      if (showColorPicker[stopId]) {
+        const container = this.colorPickerRefs[stopId];
+        if (container && !container.contains(event.target)) {
+          this.setState(prevState => ({
+            showColorPicker: {
+              ...prevState.showColorPicker,
+              [stopId]: false
+            }
+          }));
+        }
+      }
+    });
   };
 
   addColorStop = () => {
@@ -289,7 +319,10 @@ export default class GradientGenerator extends Component {
                     <span>{index + 1}</span>
                   </div>
                   
-                  <div className="color-picker-container">
+                  <div 
+                    className="color-picker-container"
+                    ref={el => this.colorPickerRefs[stop.id] = el}
+                  >
                     <div
                       className="color-preview"
                       style={{

@@ -5,8 +5,38 @@ import { css } from "emotion";
 import "./ParameterEditor.css";
 
 class ParameterEditor extends React.Component {
-  state = {
-    showColorPicker: {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      showColorPicker: {}
+    };
+    this.colorPickerRefs = {};
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = (event) => {
+    const { showColorPicker } = this.state;
+    
+    Object.keys(showColorPicker).forEach(paramName => {
+      if (showColorPicker[paramName]) {
+        const container = this.colorPickerRefs[paramName];
+        if (container && !container.contains(event.target)) {
+          this.setState(prevState => ({
+            showColorPicker: {
+              ...prevState.showColorPicker,
+              [paramName]: false
+            }
+          }));
+        }
+      }
+    });
   };
 
   toggleColorPicker = (paramName) => {
@@ -66,7 +96,10 @@ class ParameterEditor extends React.Component {
             )}
             
             {param.type === 'color' && (
-              <div className="color-picker-container">
+              <div 
+                className="color-picker-container"
+                ref={el => this.colorPickerRefs[param.name] = el}
+              >
                 <div
                   className={css`
                     display: inline-block;
