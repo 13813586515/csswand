@@ -1,0 +1,90 @@
+.exporter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.exporter-section {
+  padding: 15px;
+  background-color: #0f0f1e;
+  border-radius: 8px;
+}
+
+.exporter-section h4 {
+  color: #1d9af2;
+  margin: 0 0 15px 0;
+  font-size: 14px;
+}
+
+.exporter-section .ant-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exporter-section .ant-radio-wrapper {
+  color: #fff;
+  font-size: 14px;
+}
+
+.exporter-section .ant-radio-wrapper:hover {
+  color: #1d9af2;
+}
+
+.checkbox-option {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkbox-option label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkbox-option label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.option-description {
+  margin: 0 0 0 24px;
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.exporter-preview {
+  padding: 15px;
+  background-color: #0c1127;
+  border-radius: 8px;
+  border: 1px dashed #292d3e;
+}
+
+.exporter-preview h4 {
+  color: #ff9800;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+.preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.preview-info p {
+  margin: 0;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.preview-info p strong {
+  color: #1d9af2;
+  font-weight: normal;
+}

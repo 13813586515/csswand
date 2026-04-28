@@ -1,0 +1,130 @@
+.parameter-editor {
+  background-color: rgb(12, 17, 39);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #1d9af2;
+}
+
+.parameter-item {
+  margin-bottom: 20px;
+}
+
+.parameter-label {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.parameter-row {
+  display: flex;
+  align-items: center;
+}
+
+.ant-slider {
+  margin: 0;
+}
+
+.ant-slider-track {
+  background-color: #1d9af2;
+}
+
+.ant-slider-handle {
+  border-color: #1d9af2;
+}
+
+.ant-slider-handle.ant-tooltip-open {
+  border-color: #1d9af2;
+}
+
+.ant-slider:hover .ant-slider-track {
+  background-color: #1d9af2;
+}
+
+.ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+  border-color: #1d9af2;
+}
+
+.parameter-input-number {
+  width: 100%;
+  background-color: rgb(19, 25, 51);
+  border-color: #1d9af2;
+  color: #fff;
+}
+
+.parameter-input-number:hover,
+.parameter-input-number:focus {
+  border-color: #1d9af2;
+  box-shadow: 0 0 0 2px rgba(29, 154, 242, 0.2);
+}
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.color-value {
+  color: #fff;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+.color-picker-overlay {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.color-picker-overlay .sketch-picker {
+  box-shadow: none !important;
+}
+
+.parameter-input {
+  width: 100%;
+  background-color: rgb(19, 25, 51);
+  border-color: #1d9af2;
+  color: #fff;
+}
+
+.parameter-input:hover,
+.parameter-input:focus {
+  border-color: #1d9af2;
+  box-shadow: 0 0 0 2px rgba(29, 154, 242, 0.2);
+}
+
+.ant-input-number-input {
+  color: #fff;
+}
+
+.ant-input-number-handler-wrap {
+  background-color: rgb(19, 25, 51);
+}
+
+.ant-input-number-handler {
+  border-color: #1d9af2;
+}
+
+.ant-input-number-handler:hover {
+  background-color: #1d9af2;
+}
+
+.ant-input-number-handler-up-inner,
+.ant-input-number-handler-down-inner {
+  color: #fff;
+}
+
+.ant-tooltip-inner {
+  background-color: rgb(19, 25, 51);
+  border: 1px solid #1d9af2;
+}
+
+.ant-tooltip-arrow {
+  border-right-color: #1d9af2 !important;
+  border-bottom-color: #1d9af2 !important;
+}

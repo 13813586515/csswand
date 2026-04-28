@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import "antd/dist/antd.css";
 import SingleEffect from "../SingleEffect/SingleEffect";
+import CompareMode from "../CompareMode/CompareMode";
+import BatchDownload from "../BatchDownload/BatchDownload";
 import "./EffectBoard.css";
 
 import { css } from "emotion";
@@ -101,6 +103,96 @@ import {
 
 const RadioGroup = Radio.Group;
 
+export const allEffects = [
+  {
+    title: "Grow",
+    style: growBtnStyle,
+    htmlVariable: growHtmlVariable,
+    cssVariable: growCssVariable,
+    code: growBtn(),
+    category: "hover"
+  },
+  {
+    title: "Shrink",
+    style: shrinkStyle,
+    htmlVariable: shrinkHtmlVariable,
+    cssVariable: shrinkCssVariable,
+    code: shrink(),
+    category: "hover"
+  },
+  {
+    title: "Opacity",
+    style: opacityStyle,
+    htmlVariable: opacityHtmlVariable,
+    cssVariable: opacityCssVariable,
+    code: opacity(),
+    category: "hover"
+  },
+  {
+    title: "Rotate",
+    style: rotateStyle,
+    htmlVariable: rotateHtmlVariable,
+    cssVariable: rotateCssVariable,
+    code: rotate(),
+    category: "hover"
+  },
+  {
+    title: "Shape",
+    style: squarecircleStyle,
+    htmlVariable: squarecircleHtmlVariable,
+    cssVariable: squarecircleCssVariable,
+    code: squarecircle(),
+    category: "hover"
+  },
+  {
+    title: "Shadow",
+    style: tdshadowStyle,
+    htmlVariable: tdshadowHtmlVariable,
+    cssVariable: tdshadowCssVariable,
+    code: tdshadow(),
+    category: "hover"
+  },
+  {
+    title: "Swing",
+    style: swingStyle,
+    htmlVariable: swingHtmlVariable,
+    cssVariable: swingCssVariable,
+    code: swing(),
+    category: "hover"
+  },
+  {
+    title: "Ripple",
+    style: rippleStyle,
+    htmlVariable: rippleHtmlVariable,
+    cssVariable: rippleCssVariable,
+    code: ripple(),
+    category: "hover"
+  },
+  {
+    title: "Press Down",
+    style: pressDownStyle,
+    htmlVariable: pressDownHtmlVariable,
+    cssVariable: pressDownCssVariable,
+    code: pressDown(),
+    category: "active"
+  },
+  {
+    title: "Input",
+    htmlVariable: input1HtmlVariable,
+    cssVariable: input1CssVariable,
+    code: input1(),
+    category: "input"
+  },
+  {
+    title: "Spinner",
+    style: spinner1Style,
+    htmlVariable: spinner1HtmlVariable,
+    cssVariable: spinner1CssVariable,
+    code: spinner1(),
+    category: "loading"
+  }
+];
+
 export default class EffectBoard extends Component {
   state = {
     value: 1
@@ -116,41 +208,60 @@ export default class EffectBoard extends Component {
     return (
       <>
         <div className="grid-radio">
-          <RadioGroup onChange={this.onChange} value={this.state.value}>
-            <Radio
-              value={1}
-              className={css`
-                color: #fff;
-              `}
-            >
-              All
-            </Radio>
-            <Radio
-              value={2}
-              className={css`
-                color: #fff;
-              `}
-            >
-              Hover
-            </Radio>
-            <Radio
-              value={3}
-              className={css`
-                color: #fff;
-              `}
-            >
-              Loading
-            </Radio>
+          <div
+            className={css`
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+            `}
+          >
+            <RadioGroup onChange={this.onChange} value={this.state.value}>
+              <Radio
+                value={1}
+                className={css`
+                  color: #fff;
+                `}
+              >
+                All
+              </Radio>
+              <Radio
+                value={2}
+                className={css`
+                  color: #fff;
+                `}
+              >
+                Hover
+              </Radio>
+              <Radio
+                value={3}
+                className={css`
+                  color: #fff;
+                `}
+              >
+                Loading
+              </Radio>
 
-            {/* <Radio
-              value={4}
+              {/* <Radio
+                value={4}
+                className={css`
+                  color: #fff;
+                `}
+              >
+                D
+              </Radio> */}
+            </RadioGroup>
+            
+            <div
               className={css`
-                color: #fff;
+                display: flex;
+                gap: 10px;
               `}
             >
-              D
-            </Radio> */}
-          </RadioGroup>
+              <CompareMode effects={allEffects} />
+              <BatchDownload effects={allEffects} />
+            </div>
+          </div>
         </div>
 
         {/* Row 1 */}
