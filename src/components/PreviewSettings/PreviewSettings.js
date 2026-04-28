@@ -7,23 +7,27 @@ import { usePreview } from "../../contexts/PreviewContext";
 class PreviewSettingsClass extends Component {
   state = {
     visible: false,
+    showColorPicker: false,
   };
 
   showModal = () => {
     this.setState({
       visible: true,
+      showColorPicker: false,
     });
   };
 
   handleOk = () => {
     this.setState({
       visible: false,
+      showColorPicker: false,
     });
   };
 
   handleCancel = () => {
     this.setState({
       visible: false,
+      showColorPicker: false,
     });
   };
 
@@ -37,13 +41,26 @@ class PreviewSettingsClass extends Component {
     updateSetting("backgroundColor", color.hex);
   };
 
+  toggleColorPicker = (e) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    this.setState((prev) => ({
+      showColorPicker: !prev.showColorPicker,
+    }));
+  };
+
   resetToDefault = () => {
     const { resetPreview } = this.props;
     resetPreview();
+    this.setState({
+      showColorPicker: false,
+    });
   };
 
   render() {
     const { previewSettings, defaultPreviewSettings } = this.props;
+    const { showColorPicker } = this.state;
 
     const settingLabels = {
       backgroundColor: "预览背景色",
@@ -106,6 +123,52 @@ class PreviewSettingsClass extends Component {
             </Button>,
           ]}
         >
+          {showColorPicker && (
+            <div
+              className={css`
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(0, 0, 0, 0.5);
+              `}
+              onClick={this.toggleColorPicker}
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className={css`
+                  background-color: #fff;
+                  border-radius: 8px;
+                  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                  overflow: hidden;
+                `}
+              >
+                <SketchPicker
+                  color={previewSettings.backgroundColor}
+                  onChangeComplete={this.handleBackgroundColorChange}
+                  disableAlpha={true}
+                />
+                <div
+                  className={css`
+                    padding: 12px;
+                    background-color: #fff;
+                    text-align: center;
+                    border-top: 1px solid #eee;
+                  `}
+                >
+                  <Button type="primary" onClick={this.toggleColorPicker}>
+                    确定
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div
             className={css`
               display: flex;
@@ -138,36 +201,22 @@ class PreviewSettingsClass extends Component {
                 `}
               >
                 <div
+                  onClick={this.toggleColorPicker}
                   className={css`
-                    position: relative;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 8px;
+                    background-color: ${previewSettings.backgroundColor};
+                    border: 2px solid #e8e8e8;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    
+                    &:hover {
+                      transform: scale(1.05);
+                      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                    }
                   `}
-                >
-                  <div
-                    className={css`
-                      width: 40px;
-                      height: 40px;
-                      border-radius: 8px;
-                      background-color: ${previewSettings.backgroundColor};
-                      border: 2px solid #e8e8e8;
-                      cursor: pointer;
-                    `}
-                  />
-                  <div
-                    className={css`
-                      position: absolute;
-                      top: 100%;
-                      right: 0;
-                      z-index: 100;
-                      margin-top: 8px;
-                    `}
-                  >
-                    <SketchPicker
-                      color={previewSettings.backgroundColor}
-                      onChangeComplete={this.handleBackgroundColorChange}
-                      disableAlpha={true}
-                    />
-                  </div>
-                </div>
+                />
                 <span
                   className={css`
                     font-family: monospace;
