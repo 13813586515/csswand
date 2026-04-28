@@ -1,10 +1,11 @@
 .App {
   text-align: center;
   background-color: rgb(19, 23, 44);
-  height: 100vh;
+  min-height: 100vh;
   color: #fff;
   font-family: "Noto Sans JP", sans-serif;
   margin-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .App-header {
@@ -20,6 +21,91 @@
 
 .App-link {
   color: #61dafb;
+}
+
+/* Navigation */
+.navigation-container {
+  background-color: rgb(12, 17, 39);
+  padding: 15px 0;
+  margin: 20px 0;
+  border-top: 1px solid #1d9af2;
+  border-bottom: 1px solid #1d9af2;
+}
+
+.main-navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  background-color: transparent;
+  border: 2px solid #1d9af2;
+  border-radius: 8px;
+  color: #1d9af2;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.nav-button i {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.nav-button:hover {
+  background-color: #1d9af2;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 154, 242, 0.3);
+}
+
+.nav-button.active {
+  background-color: #1d9af2;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(29, 154, 242, 0.4);
+}
+
+.nav-button:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .main-navigation {
+    gap: 8px;
+  }
+  
+  .nav-button {
+    padding: 10px 15px;
+    min-width: 80px;
+    font-size: 12px;
+  }
+  
+  .nav-button i {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .nav-button {
+    width: 100%;
+  }
 }
 
 /* @media (max-width: 768px) {

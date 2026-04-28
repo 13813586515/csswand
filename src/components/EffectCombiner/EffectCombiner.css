@@ -1,0 +1,244 @@
+.effect-combiner {
+  background-color: rgb(19, 23, 44);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.combiner-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.combiner-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .combiner-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.effects-selection {
+  background-color: rgb(12, 17, 39);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #1d9af2;
+}
+
+.selection-card {
+  margin-bottom: 20px;
+  background-color: rgb(19, 25, 51);
+  border: 1px solid #1d9af2;
+}
+
+.selection-card .ant-card-head {
+  background-color: rgb(12, 17, 39);
+  border-bottom: 1px solid #1d9af2;
+  color: #fff;
+}
+
+.selection-card .ant-card-body {
+  background-color: rgb(19, 25, 51);
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.ant-checkbox-wrapper {
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: #1d9af2;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #1d9af2;
+  border-color: #1d9af2;
+}
+
+.ant-checkbox-checked::after {
+  border: 1px solid #1d9af2;
+}
+
+.conflicts-section {
+  margin-top: 20px;
+}
+
+.conflicts-section .ant-alert-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  border: 1px solid #ffc107;
+}
+
+.conflicts-section .ant-alert-message {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+.conflicts-section .ant-alert-description {
+  color: #fff;
+}
+
+.conflicts-section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.conflicts-section li {
+  margin-bottom: 8px;
+}
+
+.preview-section {
+  background-color: rgb(12, 17, 39);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #1d9af2;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  background-color: rgb(19, 25, 51);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.preview-container .ant-btn-ghost {
+  transition: all 0.2s ease-in-out;
+}
+
+.preview-container .ant-btn-ghost:hover {
+  transform: scale(1.1);
+}
+
+.selected-effects-list {
+  background-color: rgb(19, 25, 51);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.effects-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.effect-tag {
+  background-color: #1d9af2;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.output-section {
+  background-color: rgb(12, 17, 39);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #1d9af2;
+}
+
+.output-section .ant-tabs {
+  color: #fff;
+}
+
+.output-section .ant-tabs-tab {
+  color: #fff;
+}
+
+.output-section .ant-tabs-tab-active {
+  color: #1d9af2 !important;
+}
+
+.output-section .ant-tabs-ink-bar {
+  background-color: #1d9af2;
+}
+
+.output-section .ant-tabs-nav::before {
+  border-bottom: 1px solid #1d9af2;
+}
+
+.output-section .ant-tabs-tab:hover {
+  color: #1d9af2;
+}
+
+.code-output {
+  padding: 10px 0;
+}
+
+.copy-button {
+  background-color: #1d9af2;
+  border-color: #1d9af2;
+  margin-bottom: 15px;
+}
+
+.copy-button:hover {
+  background-color: #1a80c9;
+  border-color: #1a80c9;
+}
+
+.hl {
+  font-family: "Fira Sans", sans-serif;
+  font-size: 18px;
+  word-break: break-all;
+}
+
+.hl-bracket {
+  color: #6bc8f8;
+}
+
+.hl-class {
+  color: #c9a067;
+}
+
+.hl-attribute {
+  color: #ff5572;
+}
+
+.hl-property {
+  color: #7fc9c2;
+}
+
+.hl-value {
+  color: #ae81ff;
+}
+
+.hl-keyword {
+  color: #c792ea;
+}
+
+/* Swing animation keyframes */
+@keyframes swing {
+  15% {
+    transform: translateX(5px) rotate(15deg);
+  }
+  30% {
+    transform: translateX(-5px) rotate(-15deg);
+  }
+  50% {
+    transform: translateX(3px) rotate(9deg);
+  }
+  65% {
+    transform: translateX(-3px) rotate(-9deg);
+  }
+  80% {
+    transform: translateX(2px) rotate(6deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
