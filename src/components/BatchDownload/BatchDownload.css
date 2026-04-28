@@ -1,0 +1,82 @@
+.batch-download-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.batch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #292d3e;
+}
+
+.selected-count {
+  color: #1d9af2;
+  font-size: 14px;
+}
+
+.effects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+.effects-list .ant-checkbox-group-item {
+  width: calc(33.33% - 10px);
+  margin-right: 0;
+  margin-bottom: 10px;
+}
+
+.effects-list .ant-checkbox-wrapper {
+  color: #fff;
+  font-size: 14px;
+}
+
+.effects-list .ant-checkbox-wrapper:hover {
+  color: #1d9af2;
+}
+
+.preview-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #292d3e;
+}
+
+.preview-section h4 {
+  color: #1d9af2;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preview-item {
+  background-color: #0c1127;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.preview-item strong {
+  color: #1d9af2;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.preview-item pre {
+  margin: 0;
+  color: #aaa;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 80px;
+  overflow: hidden;
+}

@@ -125,3 +125,89 @@ input[type="text"] {
     cursor: pointer;
     background-color: rgb(19, 25, 51);
 }
+
+/* Tabs styling */
+.ant-tabs {
+    color: #fff;
+}
+
+.ant-tabs-tab {
+    color: #fff;
+}
+
+.ant-tabs-tab-active {
+    color: #1d9af2 !important;
+}
+
+.ant-tabs-ink-bar {
+    background-color: #1d9af2;
+}
+
+.ant-tabs-nav::before {
+    border-bottom: 1px solid #1d9af2;
+}
+
+.ant-tabs-tab:hover {
+    color: #1d9af2;
+}
+
+/* Modal content */
+.modal-content {
+    color: #fff;
+}
+
+/* Parameter panel */
+.parameter-panel {
+    color: #fff;
+}
+
+/* Preview section */
+.preview-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgb(12, 17, 39);
+    border-radius: 10px;
+    border: 1px solid #1d9af2;
+}
+
+.preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+}
+
+/* Button styling for preview */
+.preview-container .ant-btn-ghost {
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.preview-container .ant-btn-ghost:hover {
+    transform: scale(1.1);
+}
+
+/* Input styling for preview */
+.preview-container input {
+    transition: all 0.4s;
+}
+
+.preview-container input:focus {
+    outline: none;
+}
+
+/* Modal footer buttons */
+.ant-modal-footer .ant-btn-primary {
+    background-color: #1d9af2;
+    border-color: #1d9af2;
+}
+
+.ant-modal-footer .ant-btn-primary:hover {
+    background-color: #1a80c9;
+    border-color: #1a80c9;
+}
+
+/* Code display styling */
+.hl {
+    word-break: break-all;
+}
