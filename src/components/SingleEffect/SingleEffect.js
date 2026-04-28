@@ -58,9 +58,9 @@ class SingleEffectClass extends Component {
       color: ${theme.primary} !important;
       background-color: ${theme.secondary} !important;
       border: 1px solid ${theme.border} !important;
-      font-size: ${previewSettings?.fontSize || "14px"} !important;
-      height: ${previewSettings?.height || "32px"} !important;
-      padding: ${previewSettings?.padding || "0 15px"} !important;
+      font-size: ${(previewSettings && previewSettings.fontSize) || "14px"} !important;
+      height: ${(previewSettings && previewSettings.height) || "32px"} !important;
+      padding: ${(previewSettings && previewSettings.padding) || "0 15px"} !important;
       ${Style}
     `;
 
@@ -93,7 +93,7 @@ class SingleEffectClass extends Component {
               className="col-3"
               onClick={(event) => event.stopPropagation()}
               style={{
-                backgroundColor: theme?.background || "transparent",
+                backgroundColor: (theme && theme.background) || "transparent",
               }}
             >
               <input
@@ -101,14 +101,14 @@ class SingleEffectClass extends Component {
                 type="text"
                 placeholder="Input Underline"
                 style={{
-                  color: theme?.primary || "#1d9af2",
-                  backgroundColor: theme?.secondary || "rgb(19, 23, 44)",
+                  color: (theme && theme.primary) || "#1d9af2",
+                  backgroundColor: (theme && theme.secondary) || "rgb(19, 23, 44)",
                 }}
               />
               <span
                 className="focus-border"
                 style={{
-                  backgroundColor: theme?.accent || "#3399FF",
+                  backgroundColor: (theme && theme.accent) || "#3399FF",
                 }}
               />
             </div>
@@ -120,7 +120,7 @@ class SingleEffectClass extends Component {
             >
               {this.props.Title === "Spinner"
                 ? null
-                : this.props.previewSettings?.textContent || this.props.Title}
+                : (this.props.previewSettings && this.props.previewSettings.textContent) || this.props.Title}
             </Button>
           )}
         </div>
@@ -182,8 +182,8 @@ class SingleEffectClass extends Component {
                   value={opt.value}
                   className={css`
                     &.ant-radio-button-wrapper-checked {
-                      background-color: ${theme?.primary || "#1d9af2"};
-                      border-color: ${theme?.primary || "#1d9af2"};
+                      background-color: ${(theme && theme.primary) || "#1d9af2"};
+                      border-color: ${(theme && theme.primary) || "#1d9af2"};
                     }
                   `}
                 >
@@ -198,7 +198,7 @@ class SingleEffectClass extends Component {
               <div>
                 <p
                   style={{
-                    color: theme?.text || "#fff",
+                    color: (theme && theme.text) || "#fff",
                     fontSize: "26px",
                     marginBottom: "12px",
                   }}
@@ -220,12 +220,12 @@ class SingleEffectClass extends Component {
                       size="small"
                       icon="copy"
                       className={css`
-                        background-color: ${theme?.primary || "#1d9af2"};
-                        border-color: ${theme?.primary || "#1d9af2"};
+                        background-color: ${(theme && theme.primary) || "#1d9af2"};
+                        border-color: ${(theme && theme.primary) || "#1d9af2"};
                         color: white;
                         &:hover {
-                          background-color: ${theme?.primary || "#1d9af2"};
-                          border-color: ${theme?.primary || "#1d9af2"};
+                          background-color: ${(theme && theme.primary) || "#1d9af2"};
+                          border-color: ${(theme && theme.primary) || "#1d9af2"};
                           opacity: 0.9;
                         }
                       `}
@@ -236,15 +236,15 @@ class SingleEffectClass extends Component {
                 </div>
                 <pre
                   className={css`
-                    background-color: ${theme?.secondary || "#292D3E"};
-                    color: ${theme?.text || "#fff"};
+                    background-color: ${(theme && theme.secondary) || "#292D3E"};
+                    color: ${(theme && theme.text) || "#fff"};
                     padding: 16px;
                     border-radius: 8px;
                     white-space: pre-wrap;
                     word-wrap: break-word;
                     font-family: "Fira Code", monospace;
                     font-size: 13px;
-                    border: 1px solid ${theme?.border || "#1d9af2"};
+                    border: 1px solid ${(theme && theme.border) || "#1d9af2"};
                   `}
                 >
                   {generatedCode.html}
@@ -258,7 +258,7 @@ class SingleEffectClass extends Component {
               >
                 <p
                   style={{
-                    color: theme?.text || "#fff",
+                    color: (theme && theme.text) || "#fff",
                     fontSize: "26px",
                     marginBottom: "12px",
                   }}
@@ -280,12 +280,12 @@ class SingleEffectClass extends Component {
                       size="small"
                       icon="copy"
                       className={css`
-                        background-color: ${theme?.primary || "#1d9af2"};
-                        border-color: ${theme?.primary || "#1d9af2"};
+                        background-color: ${(theme && theme.primary) || "#1d9af2"};
+                        border-color: ${(theme && theme.primary) || "#1d9af2"};
                         color: white;
                         &:hover {
-                          background-color: ${theme?.primary || "#1d9af2"};
-                          border-color: ${theme?.primary || "#1d9af2"};
+                          background-color: ${(theme && theme.primary) || "#1d9af2"};
+                          border-color: ${(theme && theme.primary) || "#1d9af2"};
                           opacity: 0.9;
                         }
                       `}
@@ -296,15 +296,15 @@ class SingleEffectClass extends Component {
                 </div>
                 <pre
                   className={css`
-                    background-color: ${theme?.secondary || "#292D3E"};
-                    color: ${theme?.text || "#fff"};
+                    background-color: ${(theme && theme.secondary) || "#292D3E"};
+                    color: ${(theme && theme.text) || "#fff"};
                     padding: 16px;
                     border-radius: 8px;
                     white-space: pre-wrap;
                     word-wrap: break-word;
                     font-family: "Fira Code", monospace;
                     font-size: 13px;
-                    border: 1px solid ${theme?.border || "#1d9af2"};
+                    border: 1px solid ${(theme && theme.border) || "#1d9af2"};
                     max-height: 400px;
                     overflow-y: auto;
                   `}
@@ -332,12 +332,12 @@ class SingleEffectClass extends Component {
                     size="small"
                     icon="copy"
                     className={css`
-                      background-color: ${theme?.primary || "#1d9af2"};
-                      border-color: ${theme?.primary || "#1d9af2"};
+                      background-color: ${(theme && theme.primary) || "#1d9af2"};
+                      border-color: ${(theme && theme.primary) || "#1d9af2"};
                       color: white;
                       &:hover {
-                        background-color: ${theme?.primary || "#1d9af2"};
-                        border-color: ${theme?.primary || "#1d9af2"};
+                        background-color: ${(theme && theme.primary) || "#1d9af2"};
+                        border-color: ${(theme && theme.primary) || "#1d9af2"};
                         opacity: 0.9;
                       }
                     `}
@@ -348,15 +348,15 @@ class SingleEffectClass extends Component {
               </div>
               <pre
                 className={css`
-                  background-color: ${theme?.secondary || "#292D3E"};
-                  color: ${theme?.text || "#fff"};
+                  background-color: ${(theme && theme.secondary) || "#292D3E"};
+                  color: ${(theme && theme.text) || "#fff"};
                   padding: 16px;
                   border-radius: 8px;
                   white-space: pre-wrap;
                   word-wrap: break-word;
                   font-family: "Fira Code", monospace;
                   font-size: 13px;
-                  border: 1px solid ${theme?.border || "#1d9af2"};
+                  border: 1px solid ${(theme && theme.border) || "#1d9af2"};
                   max-height: 500px;
                   overflow-y: auto;
                 `}
