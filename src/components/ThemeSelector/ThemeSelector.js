@@ -18,6 +18,28 @@ class ThemeSelectorClass extends Component {
       text: "#ffffff",
       border: "#1d9af2",
     },
+    activeColorPicker: null,
+  };
+
+  componentDidMount() {
+    document.addEventListener("click", this.handleOutsideClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleOutsideClick);
+  }
+
+  handleOutsideClick = (e) => {
+    if (this.state.activeColorPicker && !e.target.closest(".color-picker-container")) {
+      this.setState({ activeColorPicker: null });
+    }
+  };
+
+  toggleColorPicker = (colorKey, e) => {
+    e.stopPropagation();
+    this.setState((prev) => ({
+      activeColorPicker: prev.activeColorPicker === colorKey ? null : colorKey,
+    }));
   };
 
   showModal = () => {
@@ -34,6 +56,7 @@ class ThemeSelectorClass extends Component {
           text: customTheme.text,
           border: customTheme.border,
         },
+        activeColorPicker: null,
       });
     } else {
       this.setState({
@@ -46,6 +69,7 @@ class ThemeSelectorClass extends Component {
           text: theme.text,
           border: theme.border,
         },
+        activeColorPicker: null,
       });
     }
   };
@@ -53,12 +77,14 @@ class ThemeSelectorClass extends Component {
   handleOk = () => {
     this.setState({
       visible: false,
+      activeColorPicker: null,
     });
   };
 
   handleCancel = () => {
     this.setState({
       visible: false,
+      activeColorPicker: null,
     });
   };
 
@@ -71,6 +97,11 @@ class ThemeSelectorClass extends Component {
     } else {
       applyTheme(themeName);
     }
+    
+    this.setState({
+      visible: false,
+      activeColorPicker: null,
+    });
   };
 
   handleColorChange = (colorKey, color) => {
@@ -85,10 +116,35 @@ class ThemeSelectorClass extends Component {
   applyCustomTheme = () => {
     const { updateCustomTheme } = this.props;
     updateCustomTheme(this.state.customColors);
+    this.setState({
+      visible: false,
+      activeColorPicker: null,
+    });
+  };
+
+  handleResetToDefault = () => {
+    const { resetToDefault } = this.props;
+    resetToDefault();
+    this.setState({
+      visible: false,
+      activeColorPicker: null,
+    });
+  };
+
+  getSelectedRadioValue = () => {
+    const { currentTheme, customTheme, themePresets } = this.props;
+    if (customTheme) {
+      return undefined;
+    }
+    if (themePresets[currentTheme]) {
+      return currentTheme;
+    }
+    return undefined;
   };
 
   render() {
-    const { theme, currentTheme, themePresets } = this.props;
+    const { theme, themePresets } = this.props;
+    const { activeColorPicker } = this.state;
 
     const colorLabels = {
       primary: "主色调",
@@ -98,6 +154,8 @@ class ThemeSelectorClass extends Component {
       text: "文字颜色",
       border: "边框颜色",
     };
+
+    const selectedValue = this.getSelectedRadioValue();
 
     return (
       <div>
@@ -164,7 +222,7 @@ class ThemeSelectorClass extends Component {
           onCancel={this.handleCancel}
           width={700}
           footer={[
-            <Button key="reset" onClick={this.props.resetToDefault}>
+            <Button key="reset" onClick={this.handleResetToDefault}>
               重置默认
             </Button>,
             <Button key="cancel" onClick={this.handleCancel}>
@@ -195,7 +253,7 @@ class ThemeSelectorClass extends Component {
             </h4>
             <RadioGroup
               onChange={this.handleThemeChange}
-              value={currentTheme}
+              value={selectedValue}
               className={css`
                 display: flex;
                 gap: 8px;
@@ -206,7 +264,7 @@ class ThemeSelectorClass extends Component {
                   key={key}
                   value={key}
                   className={css`
-                    border-color: ${currentTheme === key ? preset.primary : "#d9d9d9"};
+                    border-color: ${selectedValue === key ? preset.primary : "#d9d9d9"};
                     &.ant-radio-button-wrapper-checked {
                       background-color: ${preset.primary};
                       border-color: ${preset.primary};
@@ -249,13 +307,13 @@ class ThemeSelectorClass extends Component {
                 color: #333;
               `}
             >
-              自定义颜色
+              自定义颜色 (点击色块选择颜色)
             </h4>
             <div
               className={css`
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
+                gap: 24px;
               `}
             >
               {Object.entries(this.state.customColors).map(([key, color]) => (
@@ -265,6 +323,7 @@ class ThemeSelectorClass extends Component {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    position: relative;
                   `}
                 >
                   <span
@@ -277,12 +336,13 @@ class ThemeSelectorClass extends Component {
                     {colorLabels[key]}
                   </span>
                   <div
+                    className="color-picker-container"
                     className={css`
                       position: relative;
-                      cursor: pointer;
                     `}
                   >
                     <div
+                      onClick={(e) => this.toggleColorPicker(key, e)}
                       className={css`
                         width: 60px;
                         height: 60px;
@@ -290,23 +350,61 @@ class ThemeSelectorClass extends Component {
                         background-color: ${color};
                         border: 2px solid #e8e8e8;
                         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        
+                        &:hover {
+                          transform: scale(1.05);
+                          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        }
                       `}
                     />
-                    <div
-                      className={css`
-                        position: absolute;
-                        bottom: -80px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        z-index: 100;
-                      `}
-                    >
-                      <SketchPicker
-                        color={color}
-                        onChangeComplete={(c) => this.handleColorChange(key, c)}
-                        disableAlpha={true}
-                      />
-                    </div>
+                    {activeColorPicker === key && (
+                      <div
+                        className={css`
+                          position: fixed;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          z-index: 10000;
+                          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                          border-radius: 8px;
+                          overflow: hidden;
+                        `}
+                      >
+                        <div
+                          className={css`
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            z-index: -1;
+                          `}
+                          onClick={(e) => this.toggleColorPicker(key, e)}
+                        />
+                        <SketchPicker
+                          color={color}
+                          onChangeComplete={(c) => this.handleColorChange(key, c)}
+                          disableAlpha={true}
+                        />
+                        <div
+                          className={css`
+                            padding: 8px;
+                            background-color: #fff;
+                            text-align: center;
+                            border-top: 1px solid #eee;
+                          `}
+                        >
+                          <Button
+                            size="small"
+                            onClick={(e) => this.toggleColorPicker(key, e)}
+                          >
+                            确定
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <span
                     className={css`
@@ -325,7 +423,7 @@ class ThemeSelectorClass extends Component {
 
           <div
             className={css`
-              margin-top: 120px;
+              margin-top: 32px;
               padding: 20px;
               background-color: ${this.state.customColors.background};
               border-radius: 8px;
