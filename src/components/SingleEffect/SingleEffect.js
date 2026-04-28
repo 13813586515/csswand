@@ -65,6 +65,78 @@ export default class SingleEffect extends Component {
     });
   };
 
+  getPreviewStyle = (effectName) => {
+    const { params } = this.state;
+    const primaryColor = params.primaryColor || '#1D9AF2';
+    const backgroundColor = params.backgroundColor || '#292D3E';
+    const borderRadius = params.borderRadius !== undefined ? `${params.borderRadius}px` : '4px';
+    const duration = params.duration || 0.2;
+
+    let hoverStyle = '';
+    let activeStyle = '';
+
+    switch (effectName) {
+      case 'Grow':
+        hoverStyle = `transform: scale(${params.scale || 1.1});`;
+        break;
+      case 'Shrink':
+        hoverStyle = `transform: scale(${params.scale || 0.9});`;
+        break;
+      case 'Opacity':
+        hoverStyle = `opacity: ${params.opacity || 0.5};`;
+        break;
+      case 'Rotate':
+        hoverStyle = `transform: rotate(${params.angle || 30}deg);`;
+        break;
+      case 'Shape':
+        hoverStyle = `border-radius: ${params.borderRadius || 50}%;`;
+        break;
+      case 'Shadow':
+        const shadowX = params.shadowOffsetX || 1;
+        const shadowY = params.shadowOffsetY || 1;
+        const shadowBlur = params.shadowBlur || 0;
+        const shadowColor = params.shadowColor || '#53a7ea';
+        hoverStyle = `box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowColor}, ${shadowX * 2}px ${shadowY * 2}px ${shadowBlur}px ${shadowColor}, ${shadowX * 3}px ${shadowY * 3}px ${shadowBlur}px ${shadowColor}; transform: translateX(${-shadowX * 3}px);`;
+        break;
+      case 'Swing':
+        hoverStyle = `animation: swing ${params.duration || 1.0}s ease 1;`;
+        break;
+      case 'Ripple':
+        const rippleColor = params.rippleColor || '#47a7f5';
+        hoverStyle = `background: ${rippleColor} radial-gradient(circle, transparent 1%, ${rippleColor} 1%) center/15000%; color: white;`;
+        activeStyle = `background-color: ${backgroundColor}; background-size: 100%; transition: background 0s;`;
+        break;
+      case 'Press Down':
+        const pressOffset = params.pressOffset || 4;
+        activeStyle = `transform: translateY(${pressOffset}px); box-shadow: 0px 0px 0px 0px ${primaryColor};`;
+        break;
+      default:
+        break;
+    }
+
+    return css`
+      color: ${primaryColor};
+      background-color: ${backgroundColor};
+      border: 1px solid ${primaryColor};
+      border-radius: ${borderRadius};
+      padding: 0 15px;
+      cursor: pointer;
+      height: 32px;
+      font-size: 14px;
+      transition: all ${duration}s ease-in-out;
+      ${effectName === 'Press Down' ? `box-shadow: 0px ${params.pressOffset || 4}px 0px 0px ${primaryColor};` : ''}
+      ${effectName === 'Ripple' ? `box-shadow: 0 0 4px #999; outline: none; background-position: center; transition: background ${duration}s;` : ''}
+      
+      &:hover {
+        ${hoverStyle}
+      }
+      
+      &:active {
+        ${activeStyle}
+      }
+    `;
+  };
+
   render() {
     const effectName = this.props.Title;
     const hasParameters = parameterConfig[effectName] && parameterConfig[effectName].parameters;
@@ -158,13 +230,7 @@ export default class SingleEffect extends Component {
                       ) : (
                         <Button
                           type="ghost"
-                          style={{
-                            color: this.state.params.primaryColor || '#1D9AF2',
-                            backgroundColor: this.state.params.backgroundColor || '#292D3E',
-                            borderColor: this.state.params.primaryColor || '#1D9AF2',
-                            borderRadius: this.state.params.borderRadius ? `${this.state.params.borderRadius}px` : '4px',
-                            transition: `all ${this.state.params.duration || 0.2}s ease-in-out`
-                          }}
+                          className={this.getPreviewStyle(effectName)}
                         >
                           {effectName === "Spinner" ? null : effectName}
                         </Button>

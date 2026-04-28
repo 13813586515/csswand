@@ -366,7 +366,51 @@ button {
   getCombinedStyle = () => {
     const { selectedEffects } = this.state;
     
+    let hoverTransform = "";
+    let hoverStyles = [];
+    let baseStyles = "";
+    
+    if (selectedEffects.includes("Grow")) {
+      hoverTransform = "transform: scale(1.1);";
+    } else if (selectedEffects.includes("Shrink")) {
+      hoverTransform = "transform: scale(0.9);";
+    } else if (selectedEffects.includes("Rotate")) {
+      hoverTransform = "transform: rotate(30deg);";
+    } else if (selectedEffects.includes("Shadow")) {
+      hoverTransform = "transform: translateX(-3px);";
+    }
+    
+    if (selectedEffects.includes("Opacity")) {
+      hoverStyles.push("opacity: 0.5;");
+    }
+    
+    if (selectedEffects.includes("Shape")) {
+      hoverStyles.push("border-radius: 50%;");
+    }
+    
+    if (selectedEffects.includes("Shadow")) {
+      hoverStyles.push("box-shadow: 1px 1px #53a7ea, 2px 2px #53a7ea, 3px 3px #53a7ea;");
+    }
+    
+    if (selectedEffects.includes("Swing")) {
+      hoverStyles.push("animation: swing 1s ease 1;");
+    }
+    
+    if (selectedEffects.includes("Ripple")) {
+      hoverStyles.push("background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;");
+      hoverStyles.push("color: white;");
+    }
+    
+    if (selectedEffects.includes("Press Down")) {
+      baseStyles = `
+        box-shadow: 0px 4px 0px 0px #1D9AF2;
+      `;
+    }
+    
     return css`
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       color: #1D9AF2;
       background-color: #292D3E;
       border: 1px solid #1D9AF2;
@@ -375,21 +419,16 @@ button {
       cursor: pointer;
       height: 32px;
       font-size: 14px;
+      font-weight: normal;
+      transition: all 0.2s ease-in-out;
+      ${baseStyles}
       
       &:hover {
-        ${selectedEffects.includes("Grow") ? "transform: scale(1.1);" : ""}
-        ${selectedEffects.includes("Shrink") ? "transform: scale(0.9);" : ""}
-        ${selectedEffects.includes("Opacity") ? "opacity: 0.5;" : ""}
-        ${selectedEffects.includes("Rotate") ? "transform: rotate(30deg);" : ""}
-        ${selectedEffects.includes("Shape") ? "border-radius: 50%;" : ""}
-        ${selectedEffects.includes("Shadow") ? "box-shadow: 1px 1px #53a7ea, 2px 2px #53a7ea, 3px 3px #53a7ea; transform: translateX(-3px);" : ""}
-        ${selectedEffects.includes("Swing") ? "animation: swing 1s ease 1;" : ""}
-        ${selectedEffects.includes("Ripple") ? "background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%; color: white;" : ""}
-        transition: all 0.2s ease-in-out;
+        ${hoverTransform}
+        ${hoverStyles.join('\n        ')}
       }
       
       ${selectedEffects.includes("Press Down") ? `
-        box-shadow: 0px 4px 0px 0px #1D9AF2;
         &:active {
           transform: translateY(4px);
           box-shadow: 0px 0px 0px 0px #1D9AF2;
@@ -540,12 +579,9 @@ button {
             
             <div className="preview-container">
               {selectedEffects.length > 0 ? (
-                <Button
-                  type="ghost"
-                  className={this.getCombinedStyle()}
-                >
+                <div className={this.getCombinedStyle()}>
                   Combined Effect
-                </Button>
+                </div>
               ) : (
                 <p style={{ color: "#999" }}>请选择至少一个效果进行预览</p>
               )}
