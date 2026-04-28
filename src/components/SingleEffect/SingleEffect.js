@@ -228,12 +228,9 @@ export default class SingleEffect extends Component {
                           />
                         </div>
                       ) : (
-                        <Button
-                          type="ghost"
-                          className={this.getPreviewStyle(effectName)}
-                        >
+                        <div className={this.getPreviewStyle(effectName)}>
                           {effectName === "Spinner" ? null : effectName}
-                        </Button>
+                        </div>
                       )}
                     </div>
                   </div>

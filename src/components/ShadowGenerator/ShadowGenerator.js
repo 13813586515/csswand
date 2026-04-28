@@ -18,15 +18,45 @@ const defaultShadowLayer = {
 };
 
 export default class ShadowGenerator extends Component {
-  state = {
-    shadowLayers: [
-      { ...defaultShadowLayer, id: 1 },
-      { ...defaultShadowLayer, id: 2, offsetX: 5, offsetY: 5, blur: 10, opacity: 0.2 }
-    ],
-    boxType: "box",
-    copiedCSS: false,
-    nextLayerId: 3,
-    showColorPicker: {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      shadowLayers: [
+        { ...defaultShadowLayer, id: 1 },
+        { ...defaultShadowLayer, id: 2, offsetX: 5, offsetY: 5, blur: 10, opacity: 0.2 }
+      ],
+      boxType: "box",
+      copiedCSS: false,
+      nextLayerId: 3,
+      showColorPicker: {}
+    };
+    this.colorPickerRefs = {};
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = (event) => {
+    const { showColorPicker } = this.state;
+    
+    Object.keys(showColorPicker).forEach(layerId => {
+      if (showColorPicker[layerId]) {
+        const container = this.colorPickerRefs[layerId];
+        if (container && !container.contains(event.target)) {
+          this.setState(prevState => ({
+            showColorPicker: {
+              ...prevState.showColorPicker,
+              [layerId]: false
+            }
+          }));
+        }
+      }
+    });
   };
 
   addShadowLayer = () => {
@@ -370,7 +400,10 @@ export default class ShadowGenerator extends Component {
                   
                   <div className="control-item">
                     <label className="control-label">颜色</label>
-                    <div className="color-picker-container">
+                    <div 
+                      className="color-picker-container"
+                      ref={el => this.colorPickerRefs[layer.id] = el}
+                    >
                       <div
                         className="color-preview"
                         style={{
